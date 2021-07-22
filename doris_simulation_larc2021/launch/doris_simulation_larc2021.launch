@@ -1,12 +1,34 @@
 <?xml version="1.0"?>
 <launch>
-    <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
-    <include file="$(find doris_moveit_config)/launch/demo_gazebo.launch">
-        <arg name="load_robot_description" value="true"/>
-        <arg name="world_name" value="$(find doris_simulation_larc2021)/worlds/wrs2020.world"/>
+    <arg name="x" default="-2.1"/>
+    <arg name="y" default="1.2"/>
+    <arg name="z" default="0"/>
+    <arg name="world_name" default="$(find doris_simulation_larc2021)/worlds/wrs2020.world"/>
+    <arg name="paused" default="false"/>
+    <arg name="gazebo_gui" default="true"/>
+    <arg name="urdf_path" default="$(find doris_description)/urdf/doris_description.urdf.xacro"/>
+
+    <!-- startup simulated world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_name)"/>
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="gui" value="$(arg gazebo_gui)"/>
     </include>
+
+    <!-- send robot urdf to param server -->
+    <param name="robot_description" command="xacro $(arg urdf_path)" />
+
+    <!-- push robot_description to factory and spawn robot in gazebo at the origin, change x,y,z arguments to spawn in a different position -->
+    <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -x $(arg x) -y $(arg y) -z $(arg z) -J shoulder_joint 0 -J forearm_shoulder_joint 0 -J elbow_joint 0 -J roll_joint 0 -J yaw_joint 0 -J roll_2_joint 0 -J right_finger_joint 0 -J left_finger_joint 0" respawn="false" output="screen" />
+
+    <!-- load moveit config -->
+    <include file="$(find doris_moveit_config)/launch/demo_with_controllers.launch">
+        <arg name="load_robot_description" value="true"/>
+    </include>
+
+    <!-- load navigation config -->
     <include file="$(find butia_navigation_gazebo)/navigate-doris.launch">
         <arg name="start_sim" value="false"/>
-        <arg name="map" value="$(find tmc_wrs_gazebo_worlds)/maps/wrs2020/map.yaml"/>
+        <arg name="map" value="$(find doris_simulation_larc2021)/maps/wrs2020/map.yaml"/>
     </include>
 </launch>
