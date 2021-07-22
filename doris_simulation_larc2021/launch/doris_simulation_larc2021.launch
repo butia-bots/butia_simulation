@@ -14,8 +14,6 @@
         <arg name="urdf_path" value="$(find doris_description)/urdf/doris_description.urdf.xacro"/>
     </include>
 
-    <include file="$(find moveit_apps)/launch/spawn_objects.launch" />
-
     <node pkg="tf2_ros" type="static_transform_publisher" name="$(anon virtual_joint_broadcaster)" args="0 0 0 0 0 0 world odom" />
 
     <!-- Given the published joint states, publish tf for the robot links -->
@@ -33,5 +31,4 @@
         <arg name="start_sim" value="false"/>
         <arg name="map" value="$(find tmc_wrs_gazebo_worlds)/maps/wrs2020/map.yaml"/>
     </include>
-    </node>
 </launch>
