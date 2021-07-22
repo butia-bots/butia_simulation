@@ -3,7 +3,7 @@
     <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
     <include file="$(find doris_moveit_config)/launch/demo_gazebo.launch">
         <arg name="load_robot_description" value="true"/>
-        <arg name="world_name" value="$(find doris_simulation_larc2021.launch)/worlds/wrs2020.world"/>
+        <arg name="world_name" value="$(find doris_simulation_larc2021)/worlds/wrs2020.world"/>
     </include>
     <include file="$(find butia_navigation_gazebo)/navigate-doris.launch">
         <arg name="start_sim" value="false"/>
