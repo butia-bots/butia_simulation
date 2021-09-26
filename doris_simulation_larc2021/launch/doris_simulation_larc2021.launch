@@ -31,6 +31,4 @@
         <arg name="start_sim" value="false"/>
         <arg name="map" value="$(find doris_simulation_larc2021)/maps/wrs2020/map.yaml"/>
     </include>
-
-    <include file="$(find butia_vision_launchfiles)/object_recognition_nk.launch"/>
 </launch>
