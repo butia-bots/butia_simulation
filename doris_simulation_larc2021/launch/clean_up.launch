@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find doris_simulation_larc2021)/launch/doris_simulation_larc2021.launch"/>
+    <node name="spawn_objects_node" pkg="tmc_wrs_gazebo_worlds" type="spawn_objects" output="screen"/>
+    <include file="$(find butia_vision_launchfiles)/object_recognition_nk.launch"/>
+    <include file="$(find butia_world)/launch/clean_up.launch"/>
+</launch>
