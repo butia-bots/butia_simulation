@@ -7,7 +7,7 @@
     <arg name="paused" default="false"/>
     <arg name="gazebo_gui" default="true"/>
     <arg name="urdf_path" default="$(find doris_description)/urdf/doris_description.urdf.xacro"/>
-
+    <param name="/use_sim_time" value="true"/>
     <!-- startup simulated world -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(arg world_name)"/>
