@@ -4,23 +4,17 @@
     <arg name="y" default="2.4"/>
     <arg name="z" default="0"/>
     <arg name="yaw" default="-1.570"/>
-    <arg name="world_name" default="$(find doris_simulation_larc2021)/worlds/wrs2020_fast_highrtf_knob.world"/>
     <arg name="paused" default="false"/>
     <arg name="gazebo_gui" default="true"/>
     <arg name="urdf_path" default="$(find doris_description)/urdf/doris_description.urdf.xacro"/>
     <param name="/use_sim_time" value="true"/>
     <!-- startup simulated world -->
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(arg world_name)"/>
-        <arg name="paused" value="$(arg paused)"/>
-        <arg name="gui" value="$(arg gazebo_gui)"/>
-    </include>
+    
 
     <!-- send robot urdf to param server -->
     <param name="robot_description" command="xacro $(arg urdf_path)" />
 
     <!-- push robot_description to factory and spawn robot in gazebo at the origin, change x,y,z arguments to spawn in a different position -->
-    <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw) -J shoulder_joint 0 -J forearm_shoulder_joint 0.9546 -J elbow_joint 0.4339 -J roll_joint 1.570 -J yaw_joint -1.570 -J roll_2_joint 0 -J right_finger_joint 0 -J left_finger_joint 0 -J dorso_arm_base 0.5" respawn="false" output="screen" />
 
     <!-- load moveit config -->
     <include file="$(find doris_moveit_config)/launch/demo_with_controllers.launch">
@@ -29,11 +23,11 @@
 
         
     <!-- load head controller -->
-    <include file="$(find doris_head_description)/launch/doris_head_controller.launch">
-    </include>
+    <!-- <include file="$(find doris_head_description)/launch/doris_head_controller.launch">
+    </include>-->
     
     <!--- load head node -->
-    <node pkg="doris_simulation_larc2021" type="head.py" name="doris_head" />
+    <!-- <node pkg="doris_simulation_larc2021" type="head.py" name="doris_head" /> -->
     
     <!-- load navigation config -->
     <include file="$(find butia_navigation_gazebo)/navigate-doris.launch">
