@@ -26,13 +26,13 @@
         <arg name="load_robot_description" value="true"/>
     </include>
 
-        
-    <!-- load head controller -->
+      
+    <!-- load head controller 
     <include file="$(find doris_head_description)/launch/doris_head_controller.launch">
-    </include>
+    </include>-->
     
-    <!--- load head node -->
-    <node pkg="doris_simulation_larc2021" type="head.py" name="doris_head" />
+    <!--- load head node 
+    <node pkg="doris_simulation_larc2021" type="head.py" name="doris_head" /> -->
     
     <!-- load navigation config -->
     <include file="$(find butia_navigation_gazebo)/navigate-doris.launch">
