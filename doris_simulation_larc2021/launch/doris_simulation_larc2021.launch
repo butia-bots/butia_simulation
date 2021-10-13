@@ -34,4 +34,9 @@
         <arg name="start_sim" value="false"/>
         <arg name="map" value="$(find doris_simulation_larc2021)/maps/wrs2020/map.yaml"/>
     </include>
+
+    <include file="$(find tmc_gazebo_task_evaluators)/launch/robocup2021.launch">
+        <arg name="robot_name" value="robot"/>
+    </include>
+
 </launch>
